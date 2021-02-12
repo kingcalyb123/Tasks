@@ -1,66 +1,3 @@
-file.rename()
-?file.rename()
-file.rename(from "mytest.R", to "mytest2.R")
-file.rename(from mytest.R, to mytest2.R)
-file.rename(from mytest.R to mytest2.R)
-file.rename("mytest.R", "mytest2.R")
-?file.copy()
-file.copy("mytest2.R", "mytest3.R")
-file.path("mytest3.R")
-?file.path()
-file.path(folder1, folder2)
-file.path('folder1', 'folder2')
-?dir.create()
-?dir.create
-dir.create("testdir2") file.path("testdir3")
-dir.create("testdir2")
-dir.create(file.path('testdir2', 'testdir3')
-dir.create(file.path('testdir2', 'testdir3'), recursive = TRUE
-dir.create(file.path(testdir2, testdir3), recursive = TRUE
-dir.create(file.path("testdir2", "testdir3"), recursive = TRUE
-info()
-$ mkdir /"testdir2"/"testdir3"
-mkdir /"testdir2"/"testdir3"
-dir.create("testdir2"/"testdir3")
-dir.create(file.path("testdir2", "testdir3")), recursive = TRUE
-dir.create(file.path('testdir2', 'testdir3'), recursive = TRUE)
-skip()
-1:20
-pi:10
-15:1
-`:`
-?`:`
-seq(1,20)
-seq(1,5, by =0.5)
-seq(0,10, by =0.5)
-seq(5,10, length = 30)
-my_seq <- seq(5,10, length =30)
-length(my_seq)
-1:length(my_seq)
-seq(along.with = my_seq)
-seq_along(my_seq)
-rep(0, times=40)
-rep(c(0,1,2), times = 10)
-rep(c(0,1,2), each = 10)
-x <- c(44,NA,5,NA)
-x * 3
-y <- rnorm(1000)
-z <- rep(NA, 1000)
-my_data <- (c(y,z), 100)
-my_data <- sample(c(y,z), 100)
-my_na <- is.na(my_data)
-print(myna)
-print(my_na)
-my_na
-my_data == NA
-sum(my_na)
-my_na
-skip()
-0/0
-inf/inf
-inf-inf
-Inf-Inf
-x
 x[1:10]
 x[is.na(x)]
 y <- [!is.na(x)]
@@ -355,3 +292,147 @@ cor.test(beren3$value[Diaper], beren3$age[Diaper])
 diaperCor <- cor.test
 diaperCor <- cor.test(beren3$value[Diaper], beren3$age[Diaper])
 summary(diaperCor)
+setwd('~/Desktop/Evolution/Tasks/Task_02')#
+Data <- read.csv('https://jonsmitchell.com/data/beren.csv', stringsAsFactors=F)#
+write.csv(Data, 'rawdata.csv', quote=F)#
+length(Data)#
+nrow(Data)#
+ncol(Data)#
+colnames(Data)#
+head(Data)#
+Data[1,]#
+Data[2,]#
+Data[1:3,]#
+Data[1:3, 4]#
+Data[1:5, 1:3]
+Feeds <- which(Data[,9] == 'bottle')#
+berenMilk <- Data[Feeds,]#
+head(berenMilk)
+Feeds <- which(Data[,'event'] == 'bottle')#
+Feeds <- which(Data$event == 'bottle')
+dayID <- apply(Data, 1, function(x) paste(x[1:3], collapse='-'))#
+dateID <- sapply(dayID, as.Date, format = "%Y-%m-%d", origin = "2019-04-18")#
+Data$age <- dateID - dateID[which(Data$event == 'birth')]#
+head(Data)#
+beren2 <- Data#
+beren3 <- beren2[order(beren2$age) ,]#
+write.csv(beren3, 'beren_new.csv', quote=F, row.names=FALSE)
+Feeds <- which(beren3$event == "bottle")#
+avgMilk <- mean(beren3$value[Feeds])#
+avgMilk
+avgFeed <- tapply(beren3$value[Feeds], beren3$age[Feeds], mean)#
+avgFeed#
+varFeed <- tapply(beren3$value[Feeds], beren3$age[Feeds], var)#
+totalFeed <- tapply(beren3$value[Feeds], beren3$age[Feeds], sum)#
+numFeeds <- tapply(beren3$value[Feeds], beren3$age[Feeds], length)#
+cor(beren3$value[Feeds], beren3$age[Feeds])#
+cor.test(beren3$value[Feeds], beren3$age[Feeds])#
+berenCor <- cor.test(beren3$value[Feeds], beren3$age[Feeds])#
+summary(berenCor)#
+berenANOVA <- aov(beren3$value[Feeds] ~ beren3$caregiver[Feeds])#
+boxplot(beren3$value[Feeds] ~ beren3$caregiver[Feeds], xlab= "who gave the bottle", ylab= "amount of milk consumed (oz)")#
+?par
+par(las=1, mar=c(5,5,1,1), mgp=c(2, 0.5, 0), tck= -0.01)#
+plot(as.numeric(names(totalFeed)), totalFeed, type="b", pch =16, xlab= "age in days", ylab= "ounces of milk")#
+abline(h=mean(totalFeed), lty=2, col='red')#
+pdf("r02b-totalMilkByDay.pdf", height=4, width=4)#
+par(las=1, mar=c(5, 5, 1, 1), mgp=c(2, 0.5, 0), tck=-0.01#
+plot(as.numeric(names(totalFeed)), totalFeed, type="b", pch=16, xlab="age in days", ylab="ounces of milk")#
+abline(h=mean(totalFeed), lty=2, col='red')#
+dev.off()
+Diaper <- which(Data[,9] == 'diaper')
+berenDiaper <- Data[diaper ,]
+head(berenDiaper)
+berenDiaper <- Data[diaper,]
+berenDiaper <- Data[Diaper,]
+head(berenDiaper)
+Diaper <- which(Data[,'event'] == 'diaper')
+Diaper <- which(Data$event == 'diaper')
+avgDiaper <- mean(beren3$value[Diaper])
+avgDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], mean)
+varDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], var)
+totalDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], sum)
+numDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], length)
+cor(beren3$value[Diaper], beren3$age[Diaper])
+cor.test(beren3$value[Diaper], beren3$age[Diaper])
+Diaper <- which(Data[,9] == 'Diaper')
+berenDiaper <- Data[Diaper, ]
+head(berenDiaper)
+Diaper <- which(Data[,'event'] == 'Diaper')#
+Diaper <- which(Data$event == 'Diaper')#
+avgDiaper <- mean(beren3$value[Diaper])#
+avgDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], mean)#
+varDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], var)#
+totalDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], sum)#
+numDiaper <- tapply(beren3$value[Diaper], beren3$age[Diaper], length) #
+cor(beren3$value[Diaper], beren3$age[Diaper])#
+cor.test(beren3$value[Diaper], beren3$age[Diaper])
+diaper <- which(Data[,9] == 'diaper')
+berendiaper <- Data[diaper, ]
+head(berendiaper)
+diaper <- which(Data[, 'event'] == 'diaper')
+diaper <- which(Data$event =='diaper')
+avgdiaper <- mean(beren3$value[diaper])
+avgdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], mean)
+vardiaper <- tapply(beren3$value[diaper], beren3$age[diaper], var)
+totaldiaper <- tapply(beren3$value[diaper], beren3$age[diaper], sum)
+numdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], length)
+cor(beren3$value[diaper], beren3$age[diaper])
+cor.test(beren3$value[diaper], beren3$age[diaper])
+diaper <- which(Data[,9] == 'diaper')#
+berendiaper <- Data[diaper, ]#
+head(berendiaper)
+diaper <- which(Data[, 'event'] == 'berendiaper')#
+diaper <- which(Data$event =='berendiaper')#
+avgdiaper <- mean(beren3$value[berendiaper])#
+avgdiaper <- tapply(beren3$value[berendiaper], beren3$age[berendiaper], mean)#
+vardiaper <- tapply(beren3$value[berendiaper], beren3$age[berendiaper], var)#
+totaldiaper <- tapply(beren3$value[berendiaper], beren3$age[berendiaper], sum)#
+numdiaper <- tapply(beren3$value[berendiaper], beren3$age[berendiaper], length)#
+cor(beren3$value[berendiaper], beren3$age[berendiaper])#
+cor.test(beren3$value[berendiaper], beren3$age[berendiaper])
+diaper <- which(Data[,9] == 'diaper')#
+berendiaper <- Data[diaper, ]#
+head(berendiaper)#
+diaper <- which(Data[, 'event'] == 'diaper')#
+diaper <- which(Data$event =='diaper')#
+avgdiaper <- mean(beren3$value[diaper])#
+avgdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], mean)#
+vardiaper <- tapply(beren3$value[diaper], beren3$age[diaper], var)#
+totaldiaper <- tapply(beren3$value[diaper], beren3$age[diaper], sum)#
+numdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], length)#
+cor(beren3$value[diaper], beren3$age[berendiaper])#
+cor.test(beren3$value[diaper], beren3$age[diaper])
+diaper <- which(Data[,9] == 'diaper')#
+berendiaper <- Data[diaper, ]#
+head(berendiaper)#
+diaper <- which(Data[, 'event'] == 'diaper')#
+diaper <- which(Data$event =='diaper')#
+avgdiaper <- mean(beren3$value[diaper])#
+avgdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], mean)#
+vardiaper <- tapply(beren3$value[diaper], beren3$age[diaper], var)#
+totaldiaper <- tapply(beren3$value[diaper], beren3$age[diaper], sum)#
+numdiaper <- tapply(beren3$value[diaper], beren3$age[diaper], length)#
+cor(beren3$value[diaper], beren3$age[diaper])#
+cor.test(beren3$value[diaper], beren3$age[diaper])
+solids <- which(Data[,9] =='solids')
+berensolids <- Data[solids, ]
+head(berensolids)
+solids <- which(Data[, 'event'] == 'solids')
+solids <- which(Data$event == 'solids')
+avgsolids <- mean(beren3$value[solids])
+avgsolids <- tapply(beren3$value[solids], beren3$age[solids], mean)
+varsolids <- tapply(beren3$value[solids], beren3$age[solids], var)
+totalsolids <- tapply(beren3$value[solids], beren3$age[solids], sum)
+numsolids <- tapply(beren3$value[solids], beren3$age[solids], length)
+cor(beren3$value[solids], beren3$age[solids])
+solids
+totalsolids <- sum(solids)
+totalage <- sum(age)
+totalyear <- sum(year)
+plot(totalsolids)
+plot(as.numeric(names(totalsolids))totalsolids, type ="b", pch=16)
+plot(as.numeric(names(totalsolids))totalsolids, type ="b", pch=16
+plot(as.numeric(names(totalsolids)), totalsolids, type ="b", pch=16, xlab ="age in days", ylab = "amount of solids")
+par(las=1, mar=c(5,5,1,1), mgp=c(2, 0.5, 0), tck= -0.01)
+plot(as.numeric(names(totalsolids)), totalsolids, type ="b", pch=16, xlab ="age in days", ylab = "amount of solids")
